@@ -140,10 +140,12 @@ def resumable_upload(insert_request, callbackurl, uid):
         
         # the callbackurl is set/passed in google-cloud.js:startPublishing()
         # the callbackurl is (probably) youtube-subscribe.js:video_processing_callback 
-        r = requests.get(callbackurl+"?video_id="+response['id']+"&event_type=Video+ID+created&uid="+uid)
+        tpurl = callbackurl+"&video_id="+response['id']+"&event_type=Video+ID+created&uid="+uid
+       	r = requests.get(tpurl)
+       	#print (tpurl)
         #print (r.text+"\n\ntrying to call:\n"+callbackurl+"?video_id="+response['id']+"&event_type=Video+ID+created&uid="+uid+"\n\n")
         #print (response)
-        # print response['id'] # This prints the new video id but we don't need to print it out here
+        #print (response['id']) # This prints the new video id but we don't need to print it out here
       else:
         exit("The upload failed with an unexpected response: %s" % response)
     except (HttpError, e):
